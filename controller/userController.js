@@ -22,7 +22,10 @@ module.exports={
         userHelpers.doSignup(req.body).then((response)=>{
             res.redirect('/home')
             console.log(response);
-        }).catch((err)=>{
+        }).catch((user)=>{
+           if(user) res.render('userView/signup',{error:"username already exists!!!"})
+        })
+        .catch((err)=>{
             console.log("ERROR occured during signup");
             console.log(err);
         })

@@ -5,11 +5,16 @@ const { response } = require('../../app');
 module.exports = {
   doSignup: (userData) => {
     return new Promise(async(resolve, reject) => {
+        let user= await db.get().collection(collection.USER_COLLECTION).findOne({username:userData.username})
+        if(user){
+            reject(user=true)
+        }
+        else{
       userData.password = await bcrypt.hash(userData.password, 10);
       const result = await db.get().collection(collection.USER_COLLECTION).insertOne(userData);
       if (result.insertedId) resolve(result);
       else reject()
-    });
+  }});
   },
 
  doLogin:(userData)=>{
