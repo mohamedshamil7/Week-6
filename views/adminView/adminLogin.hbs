@@ -4,16 +4,13 @@
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
-            <form action="/login-submit" method="post">
+            <form action="/admin/admin-submit" method="post">
 
-              <h3 class="mb-5">Sign in</h3>
+              <h3 class="mb-5">Admin Login in</h3>
               <p style="color:red ;"></p>
              <div class="form-outline mb-4">
-              {{#if error}}
-
               <p style="color: red;">{{error}}</p>
-              {{/if}}
-              <input type="text" name="username" id="typeUsernameX-2" class="form-control form-control-lg" />
+              <input type="text" name="adminId" id="typeUsernameX-2" class="form-control form-control-lg" />
               <label class="form-label pt-4" for="typeUsernameX-2">Username</label>
             </div>
 

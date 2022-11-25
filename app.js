@@ -28,13 +28,13 @@ db.connect((err)=>{
   else console.log('database connected');
 })
 
-app.use(session({secret:"key",cookie:{maxAge:60000}} ))
+app.use(session({secret:"key",cookie:{maxAge:60000*5}} ))
 
 
 
 
-app.use('/admin', adminRouter);
 app.use('/', usersRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -12,9 +12,12 @@ module.exports={
             console.log("session created");
             res.redirect('/home')
             console.log('redirect home');
-            // console.log(response+"<<<<login sucess");
         }).catch(()=>{
-            res.render('userView/login',{error:"invalid Username or password"})
+
+            req.session.LoginErr="Invalid Username or Password"
+            res.render('userView/login',{"error":req.session.LoginErr})
+            req.session.LoginErr=null
+
         })
     },
 
@@ -37,7 +40,7 @@ module.exports={
             next()
          } 
          else {
-            console.log('else called');
+            req.session.LoginErr=null
             res.render('userView/login')}
     },
     isLoggedIn:(req,res,next)=>{
@@ -48,6 +51,7 @@ module.exports={
             res.redirect('/home')
         }
         else{
+            req.session.LoginErr=null
             res.render('userView/login')
         }
     }
