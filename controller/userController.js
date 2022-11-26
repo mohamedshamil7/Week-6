@@ -5,13 +5,22 @@ const userHelpers=require('../models/user-helper/userHelpers')
 module.exports={
 
     userLoginRoute :(req,res)=>{
+
+        // if(userses){
+        //     res.header(
+        //         "Cache-Control",
+        //         "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0"
+        //       );
+        //     }
         userHelpers.doLogin(req.body).then((response)=>{
             req.session.user=req.body.username
-            req.session.loggedin=true
 
-            console.log("session created");
-            res.redirect('/home')
-            console.log('redirect home');
+            req.session.loggedin=true
+            let userses= req.session.user
+            
+                console.log("session created");
+                res.redirect('/home')
+                console.log('redirect home');
         }).catch(()=>{
 
             req.session.LoginErr="Invalid Username or Password"
@@ -54,6 +63,11 @@ module.exports={
             req.session.LoginErr=null
             res.render('userView/login')
         }
+    },
+    userLogout:(req,res)=>{
+        req.session.user=null
+        req.session.loggedin=false
+        res.render('userView/login')
     }
 
 }

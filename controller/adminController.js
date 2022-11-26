@@ -1,7 +1,7 @@
 const { response } = require('../app')
 const adminHelpers=require('../models/admin-helper/adminHelpers')
 const userHelpers=require('../models/user-helper/userHelpers')
-var usersData
+ const{doSignup}= require('../models/user-helper/userHelpers')
 module.exports={
      
 
@@ -59,6 +59,24 @@ res.redirect('/admin')
             res.redirect('/admin')
         })
         console.log(req.body);
+    },
+    addUserPage:(req,res)=>{
+        res.render('adminView/addUser')
+    },
+
+    addUserRoute:(req,res)=>{
+        doSignup(req.body).then((response)=>{
+            console.log(response);
+            res.redirect('/admin')
+        }).catch(()=>{
+            res.render('adminView/addUser',{error:'Error Occured'})
+        })
+    },
+    adminLogout:(req,res)=>{
+        req.session.admin=null
+        req.session.loggedIn=false
+        console.log('admin logged Out');
+        res.render('adminView/adminLogin')
     }
 
 

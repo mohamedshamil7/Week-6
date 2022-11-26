@@ -9,16 +9,20 @@
               <h3 class="mb-5">Sign in</h3>
               <p style="color:red ;"></p>
              <div class="form-outline mb-4">
-              {{#if error}}
+              {{!-- {{#if error}}
 
               <p style="color: red;">{{error}}</p>
+              {{/if}} --}}
+              {{#if error}}
+              <span  style="color: red ;"id="username-error"></span>
               {{/if}}
-              <input type="text" name="username" id="typeUsernameX-2" class="form-control form-control-lg" />
+              <input type="text" name="username" id="v-username" oninput="validateName()" class="form-control form-control-lg" placeholder="Enter Username" />
               <label class="form-label pt-4" for="typeUsernameX-2">Username</label>
             </div>
 
               <div class="form-outline mb-4 p-4">
-                <input type="password" name="password" id="typePasswordX-2" class="form-control form-control-lg" />
+                <span id="password-error"></span>
+                <input type="password"id="v-password" oninput="validatePasssword()"  name="password"  class="form-control form-control-lg" placeholder="Enter Password" />
                 <label class="form-label pt-4" for="typePasswordX-2">Password</label>
               </div>
 
@@ -43,4 +47,6 @@
       </div>
     </div>
   </div>
+
+  <script src="../public/javascripts/validation.js"></script>
 </section>

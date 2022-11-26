@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const {userLoginRoute,userSignupRoute,sessionCheck,isLoggedIn}= require('../controller/userController')
+const {userLoginRoute,userSignupRoute,sessionCheck,isLoggedIn,userLogout}= require('../controller/userController')
 
 /* GET users listing. */
 router.get('/', isLoggedIn,function(req, res,) {
@@ -20,6 +20,7 @@ router.get('/home',sessionCheck,(req,res)=>{
   res.render('userView/home')
 })
 
+router.get('/logout',userLogout)
 
 
 module.exports = router;
