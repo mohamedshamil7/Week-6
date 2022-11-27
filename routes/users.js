@@ -1,26 +1,21 @@
 var express = require('express');
+const app = require('../app');
 var router = express.Router();
 
-const {userLoginRoute,userSignupRoute,sessionCheck,isLoggedIn,userLogout}= require('../controller/userController')
+const {userLoginRoute,userSignupRoute,userLogout,sessionCheck,LogiinSession,nocache,redirectHome,rendersignup,renderHome}= require('../controller/userController')
 
 /* GET users listing. */
-router.get('/', isLoggedIn,function(req, res,) {
-  res.render('userView/login');
-});
+router.get('/',nocache,sessionCheck,redirectHome)
 
 router.post('/login-submit',userLoginRoute)
 
-router.get('/signup',(req,res)=>{
-  res.render('userView/signup');
-})
+router.get('/signup',rendersignup)
+ 
+router.post('/signup-submit',userSignupRoute)
 
-router.post('/signup-submit',userSignupRoute,)
+router.get('/home',nocache,sessionCheck,renderHome)
 
-router.get('/home',sessionCheck,(req,res)=>{
-  res.render('userView/home')
-})
-
-router.get('/logout',userLogout)
+router.get('/logout',nocache,userLogout)
 
 
 module.exports = router;

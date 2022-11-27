@@ -1,22 +1,38 @@
-const userHelpers=require('../models/user-helper/userHelpers')
+    const userHelpers=require('../models/user-helper/userHelpers')
 
 
 
 module.exports={
 
+
+    nocache:(req, res, next) =>{
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.header('Expires', '-1');
+        res.header('Pragma', 'no-cache');
+        next();
+      },
+
+
+    redirectHome:(req,res)=>{
+        res.redirect('/home')
+      },
+
+      
+    renderHome:(req,res)=>{
+        res.render('userView/home')
+      },
+      rendersignup:(req,res)=>{
+        res.render('userView/signup')
+      },
+
     userLoginRoute :(req,res)=>{
 
-        // if(userses){
-        //     res.header(
-        //         "Cache-Control",
-        //         "no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0"
-        //       );
-        //     }
+    
         userHelpers.doLogin(req.body).then((response)=>{
             req.session.user=req.body.username
 
-            req.session.loggedin=true
-            let userses= req.session.user
+            req.session.UserloggedIn=true
+            // let userses= req.session.user
             
                 console.log("session created");
                 res.redirect('/home')
@@ -30,7 +46,7 @@ module.exports={
         })
     },
 
-    userSignupRoute :(req,res)=>{
+        userSignupRoute :(req,res)=>{
         userHelpers.doSignup(req.body).then((response)=>{
             res.redirect('/home')
             console.log(response);
@@ -43,31 +59,44 @@ module.exports={
         })
 
     },
-    sessionCheck:(req,res,next)=>{
-         if(req.session.user){
-            console.log('going to call next');
-            next()
-         } 
-         else {
-            req.session.LoginErr=null
-            res.render('userView/login')}
-    },
-    isLoggedIn:(req,res,next)=>{
-        if(!req.session.user){
-            req.session.loggedin=false
+     sessionCheck :(req,res,next)=>{
+        if(!req.session.user){   
+            req.session.UserloggedIn=false
         }
+
         if(req.session.user){
-            res.redirect('/home')
-        }
-        else{
-            req.session.LoginErr=null
-            res.render('userView/login')
-        }
-    },
+           console.log("session checking chekcing"+req.session.user+".>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..>>>>>>......>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+              
+           console.log('going to call next');
+           next()  
+       } 
+       else {
+           
+           res.render('userView/login')
+           }
+      },
     userLogout:(req,res)=>{
         req.session.user=null
-        req.session.loggedin=false
+        req.session.UserloggedIn=false
         res.render('userView/login')
-    }
+    },
+    LogiinSession:(req,res,next)=>{
+        if(req.session.user){
+            console.log(req.session.user+"---------------------11111---------------------------");
+            res.redirect('/home')
+
+        }else{
+
+            console.log("#################################else working############################");
+            next()
+        }
+
+    },
+  
+
+     
+
+    
+     
 
 }

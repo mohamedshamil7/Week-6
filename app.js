@@ -16,19 +16,43 @@ var db=require('./models/db-connection/dbConnection')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
+// app.use((req,res,next)=>{
+  //   res.set("Cache-Control","no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0");
+  
+  
+  //   next();
+  
+  //   // "cache-control","no-cache,no-store,must-revalidate"
+  // });
+  
+  // app.use((req, res, next) => {
+  //   if (!req.user) {
+  //     res.header("cache-control", "private,must revalidate,no-cache,no-store");
+  //     res.header("Express", "-3");
+  //   }  
+  //   next();
+  // });
 
-db.connect((err)=>{
+  app.use(function(req, res, next) {
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    next();
+  })
+
+  app.use(session({secret: "key",cookie:{maxAge:60000*5},resave:false,saveUninitialized:false }))
+  
+  app.use(logger('dev'));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: false }));
+  app.use(cookieParser());
+  app.use(express.static(path.join(__dirname, 'public')));
+  
+  
+  db.connect((err)=>{
   if(err) console.log(' Connection error '+err);
   else console.log('database connected');
 })
 
-app.use(session({secret:"key",cookie:{maxAge:60000*5}} ))
 
 
 
