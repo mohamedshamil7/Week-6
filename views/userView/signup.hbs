@@ -11,12 +11,16 @@
 
             <div class="form-outline mb-4">
               <p style="color:red ;">{{error}}</p>
-              <input type="text" name="username" id="typeUsernameX-2" class="form-control form-control-lg" />
+
+              <span id="username-error"></span>
+              <input type="text" name="username" id="data-username" oninput="validateUserName()" class="form-control form-control-lg" />
               <label class="form-label pt-4" for="typeUsernameX-2">Username</label>
             </div>
             
             <div class="form-outline mb-4">
-                <input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
+
+              <span id="email-error"></span>
+                <input type="email" name="email" id="data-email" oninput="validateEmail()" class="form-control form-control-lg" />
                 <label class="form-label pt-4" for="typeEmailX-2">Email</label>
               </div>
 
@@ -24,22 +28,11 @@
               <input type="password" name="password" id="typePasswordX-2" class="form-control form-control-lg" />
               <label class="form-label pt-4" for="typePasswordX-2">Password</label>
             </div>
-
-            {{!-- <!-- Checkbox -->
-            <div class="form-check d-flex justify-content-start mb-4">
-              <input class="form-check-input" type="checkbox" value="" id="form1Example3" />
-              <label class="form-check-label" for="form1Example3"> Remember password </label>
-            </div> --}}
-
             <button class="btn btn-primary btn-lg btn-block " type="submit" >Sign Up</button>
             </form>
 
             <hr class="my-4">
-
-            {{!-- <button class="btn btn-lg btn-block btn-primary" style="background-color: #dd4b39;"
-              type="submit"><i class="fab fa-google me-2"></i> log in?</button> --}}
-            
-                        <a class="btn btn-lg btn-block btn-danger fab fa-google me-2" href="/">Already have an account?</a>
+<a class="btn btn-lg btn-block btn-danger fab fa-google me-2" href="/">Already have an account?</a>
 
 
           </div>
@@ -48,3 +41,41 @@
     </div>
   </div>
 </section>
+
+<script>
+  var usernameError= document.getElementById('username-error')
+  var emailError=document.getElementById('email-error')
+
+  function validateUserName(){
+    var username=document.getElementById('data-username').value;
+
+if(username.length==0){
+   {{!-- console.log(""); --}}
+        usernameError.innerHTML='Please Enter a UserName';
+        return false;
+}
+ if(!username.match(/^[A-Za-z]/)){
+        usernameError.innerHTML='please enter valid UserName';
+        return false;
+
+  }
+username.innerHTML=" ";
+
+    return true;
+  }
+ function validateEmail(){
+  var email=document.getElementById('data-email').value
+if(email.length == 0){
+        emailError.innerHTML='Email is rquired'
+        return false
+  
+ }
+  if(!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)+$/)){
+        emailError.innerHTML='enter valied email address'
+        return false;
+
+  }
+  emailError.innerHTMl=' ';
+  return true;
+ }
+</script>

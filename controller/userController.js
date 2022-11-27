@@ -1,4 +1,5 @@
-    const userHelpers=require('../models/user-helper/userHelpers')
+    const { response } = require('../app');
+const userHelpers=require('../models/user-helper/userHelpers')
 
 
 
@@ -24,17 +25,26 @@ module.exports={
       rendersignup:(req,res)=>{
         res.render('userView/signup')
       },
+      renderHomewithUserData:(req,res)=>{
+        username=req.session.user.username
+        console.log(username);
+        res.render('userView/home',{username})
+      },
 
     userLoginRoute :(req,res)=>{
 
     
-        userHelpers.doLogin(req.body).then((response)=>{
-            req.session.user=req.body.username
+        userHelpers.doLogin(req.body).then((data)=>{
+            if(req.body.username ||req.nody.email || req.body.username)
+
+            console.log("called/////////////////////"+data.userid);
+            req.session.user={username:data.username,id:data.userid}
+          
 
             req.session.UserloggedIn=true
             // let userses= req.session.user
             
-                console.log("session created");
+                console.log("session created"); 
                 res.redirect('/home')
                 console.log('redirect home');
         }).catch(()=>{
@@ -74,7 +84,20 @@ module.exports={
            
            res.render('userView/login')
            }
-      },
+      }, 
+
+userAccounts:(req,res)=>{
+    console.log("//////////log///////////");
+// console.log(req.session.id);
+    userHelpers.getData(req.session.user.id).then((response)=>{
+        console.log("//////////////////////reposne////////////");
+        console.log(response);
+        res.render('userView/accounts',{response})
+
+    }).catch(()=>{
+        console.log("error in fecthing user data!!!");
+    }) 
+},
     userLogout:(req,res)=>{
         req.session.user=null
         req.session.UserloggedIn=false
