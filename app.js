@@ -17,27 +17,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 
-// app.use((req,res,next)=>{
-  //   res.set("Cache-Control","no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0");
-  
-  
-  //   next();
-  
-  //   // "cache-control","no-cache,no-store,must-revalidate"
-  // });
-  
-  // app.use((req, res, next) => {
-  //   if (!req.user) {
-  //     res.header("cache-control", "private,must revalidate,no-cache,no-store");
-  //     res.header("Express", "-3");
-  //   }  
-  //   next();
-  // });
 
-  app.use(function(req, res, next) {
-    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-    next();
-  })
+
+  // app.use(function(req, res, next) {
+  //   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  //   next();
+  // })
 
   app.use(session({secret: "key",cookie:{maxAge:60000*5},resave:false,saveUninitialized:false }))
   

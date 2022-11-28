@@ -2,7 +2,7 @@ var express = require('express');
 const app = require('../app');
 var router = express.Router();
 
-const {userLoginRoute,userSignupRoute,userLogout,sessionCheck,LogiinSession,nocache,redirectHome,rendersignup,renderHome,renderHomewithUserData,userAccounts}= require('../controller/userController')
+const {userLoginRoute,userSignupRoute,userLogout,sessionCheck,nocache,redirectHome,rendersignup,renderHomewithUserData,userAccounts}= require('../controller/userController')
 
 /* GET users listing. */
 router.get('/',nocache,sessionCheck,redirectHome)

@@ -24,10 +24,10 @@ module.exports = {
         if(user){
             await bcrypt.compare(userData.password,user.password).then((result)=>{
 
-                console.log(":::::::::::::::::",result);
+
 
                 if(result) {
-                    console.log(">>>>>>>user>>>>>.>>",user);
+                    
                     var userData={
                         username:user.username,
                         userid:user._id
@@ -43,14 +43,14 @@ module.exports = {
  },
 
  getData:(userId)=>{ 
-    //  console.log(ObjectId(userId));
+
      
 
     return new Promise(async(resolve,reject)=>{
         console.log("emtered d\\get data");
-        console.log("?????????????????????"+userId);
+
         let data=await db.get().collection(collection.USER_COLLECTION).findOne({_id:ObjectId(userId)})
-        console.log("?>>>>>"+data); 
+
         if(data) resolve(data)
         else reject()
     })

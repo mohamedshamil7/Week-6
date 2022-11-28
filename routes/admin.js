@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const{adminLoginRoute,redirectDash,adminSession,nocache,isadminLoggedIn,getAllUsersRoute,deleteUser,getEditUser,editUser,addUserPage,addUserRoute,adminLogout}=require('../controller/adminController')
+const{adminLoginRoute,redirectDash,adminSession,nocache,getAllUsersRoute,deleteUser,getEditUser,editUser,addUserPage,addUserRoute,adminLogout}=require('../controller/adminController')
 
 /* GET home page. */
 
@@ -22,9 +22,6 @@ router.post('/addUser-submit',addUserRoute,redirectDash)
 
 router.get('/logout',adminLogout)
 
-// router.get('/adminDash',adminSession,(req,res)=>{
-//   res.render('adminView/adminDash',{usersData})
-// })
  
 
 module.exports = router; 

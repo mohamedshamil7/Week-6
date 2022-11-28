@@ -1,4 +1,4 @@
-<section class="vh-100" style="background-color: #508bfc;">
+<section class="vh-100" style="background-color: #B9AD50;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -12,27 +12,28 @@
             <div class="form-outline mb-4">
               <p style="color:red ;">{{error}}</p>
 
-              <span id="username-error"></span>
+              <span style="color:red ;" id="username-error"></span>
               <input type="text" name="username" id="data-username" oninput="validateUserName()" class="form-control form-control-lg" />
               <label class="form-label pt-4" for="typeUsernameX-2">Username</label>
             </div>
             
             <div class="form-outline mb-4">
 
-              <span id="email-error"></span>
+              <span  style="color:red ;" id="email-error"></span>
                 <input type="email" name="email" id="data-email" oninput="validateEmail()" class="form-control form-control-lg" />
                 <label class="form-label pt-4" for="typeEmailX-2">Email</label>
               </div>
 
             <div class="form-outline mb-4 p-4">
-              <input type="password" name="password" id="typePasswordX-2" class="form-control form-control-lg" />
+              <span  style="color:red ;" id="password-error"></span>
+              <input type="password" name="password" id="data-password" oninput="validatePassword()" class="form-control form-control-lg" />
               <label class="form-label pt-4" for="typePasswordX-2">Password</label>
             </div>
             <button class="btn btn-primary btn-lg btn-block " type="submit" >Sign Up</button>
             </form>
 
             <hr class="my-4">
-<a class="btn btn-lg btn-block btn-danger fab fa-google me-2" href="/">Already have an account?</a>
+<a class="btn btn-lg btn-block btn-danger " href="/">Already have an account?</a>
 
 
           </div>
@@ -45,12 +46,14 @@
 <script>
   var usernameError= document.getElementById('username-error')
   var emailError=document.getElementById('email-error')
+  var passwordError= document.getElementById('password-error')
 
   function validateUserName(){
+ 
     var username=document.getElementById('data-username').value;
 
 if(username.length==0){
-   {{!-- console.log(""); --}}
+
         usernameError.innerHTML='Please Enter a UserName';
         return false;
 }
@@ -78,4 +81,19 @@ if(email.length == 0){
   emailError.innerHTMl=' ';
   return true;
  }
+
+ validatePassword(){
+  var password=document.getElementById('data-password').value
+
+  if(password.length==0){
+    passwordError.innerHTML='Please enter password'
+    return false
+  }
+
+passwordError.innerHTML=' '
+return true
+ }
+ 
+
+
 </script>

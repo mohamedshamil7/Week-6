@@ -32,50 +32,66 @@ module.exports={
       },
 
     userLoginRoute :(req,res)=>{
-
     
-        userHelpers.doLogin(req.body).then((data)=>{
-            if(req.body.username ||req.nody.email || req.body.username)
 
-            console.log("called/////////////////////"+data.userid);
-            req.session.user={username:data.username,id:data.userid}
+
+            userHelpers.doLogin(req.body).then((data)=>{
           
 
-            req.session.UserloggedIn=true
-            // let userses= req.session.user
-            
-                console.log("session created"); 
-                res.redirect('/home')
-                console.log('redirect home');
-        }).catch(()=>{
+                console.log("called/////////////////////"+data.userid);
+                req.session.user={username:data.username,id:data.userid}
+              
+    
+                req.session.UserloggedIn=true
+                // let userses= req.session.user
+                
+                    console.log("session created"); 
+                    res.redirect('/home')
+                    console.log('redirect home');
+            }).catch(()=>{
+    
+                req.session.LoginErr="Invalid Username or Password"
+                res.render('userView/login',{"error":req.session.LoginErr})
+                req.session.LoginErr=null
+    
+            })
 
-            req.session.LoginErr="Invalid Username or Password"
-            res.render('userView/login',{"error":req.session.LoginErr})
-            req.session.LoginErr=null
 
-        })
+        
+
+    
+
     },
 
         userSignupRoute :(req,res)=>{
-        userHelpers.doSignup(req.body).then((response)=>{
-            res.redirect('/home')
-            console.log(response);
-        }).catch((user)=>{
-           if(user) res.render('userView/signup',{error:"username already exists!!!"})
-        })
-        .catch((err)=>{
-            console.log("ERROR occured during signup");
-            console.log(err);
-        })
+            if(!req.body.username ||!req.body.email || !req.body.password){
+                res.render('userView/signup',{error:"please ender details"})
+            }
+
+            else{
+                userHelpers.doSignup(req.body).then((response)=>{
+                    res.redirect('/home')
+                    console.log(response);
+                }).catch((user)=>{
+                   if(user) res.render('userView/signup',{error:"username already exists!!!"})
+                })
+                .catch((err)=>{
+                    console.log("ERROR occured during signup");
+                    console.log(err);
+                })
+
+            }
+
+        
 
     },
      sessionCheck :(req,res,next)=>{
         if(!req.session.user){   
-            req.session.UserloggedIn=false
+            req.session.UserloggedIn=false  
         }
 
         if(req.session.user){
-           console.log("session checking chekcing"+req.session.user+".>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>..>>>>>>......>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+           console.log("session checking chekcing"+req.session.user);
               
            console.log('going to call next');
            next()  
@@ -87,7 +103,7 @@ module.exports={
       }, 
 
 userAccounts:(req,res)=>{
-    console.log("//////////log///////////");
+    console.log("entered user Acc //");
 // console.log(req.session.id);
     userHelpers.getData(req.session.user.id).then((response)=>{
         console.log("//////////////////////reposne////////////");
@@ -105,21 +121,13 @@ userAccounts:(req,res)=>{
     },
     LogiinSession:(req,res,next)=>{
         if(req.session.user){
-            console.log(req.session.user+"---------------------11111---------------------------");
+            console.log(req.session.user);
             res.redirect('/home')
 
         }else{
-
-            console.log("#################################else working############################");
             next()
         }
 
     },
   
-
-     
-
-    
-     
-
 }

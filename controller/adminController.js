@@ -21,6 +21,8 @@ module.exports={
     },
 
     adminLoginRoute:(req,res,next)=>{
+    
+
     adminHelpers.adminLogin(req.body).then((response)=>{
     req.session.admin=req.body.adminId;
 
@@ -37,20 +39,6 @@ module.exports={
         if(req.session.admin) next()
         else res.render('adminView/adminLogin')
     }, 
-
-
-    // isadminLoggedIn:(req,res,next)=>{
-    //     if(!req.session.admin){
-    //         req.session.loggedIn=false
-    //     }
-    //     if(req.session.admin){
-    //         next()
-    //         // res.redirect('/admin')
-    //     }else{
-    //         res.render('adminView/adminLogin')
-
-    //     }
-    // },
     getAllUsersRoute:(req,res)=>{
 
         adminHelpers.getAllUsers().then((users)=>{
@@ -60,7 +48,6 @@ module.exports={
     )},
     deleteUser:(req,res,next)=>{
         adminHelpers.RemoveUser(req.params.id).then((response)=>{
-            // res.redirect('/admin')
             next()
         })
     },
@@ -75,7 +62,6 @@ module.exports={
 
     editUser:(req,res,next)=>{
         adminHelpers.editUserData(req.body).then((response)=>{
-            // res.redirect('/admin')
             next()
         })
         console.log(req.body);
