@@ -11,13 +11,15 @@
 
             <div class="form-outline mb-4">
               <p style="color:red ;">{{error}}</p>
-              <input type="text" name="username" id="typeUsernameX-2" class="form-control form-control-lg" />
+              <span id="name-error"style="color:red ;" ></span>
+              <input type="text" name="username" id="contact-name" oninput="validateName()" class="form-control form-control-lg" />
               <label class="form-label pt-4" for="typeUsernameX-2">Username</label>
             </div>
             
             <div class="form-outline mb-4">
-                <input type="email" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                <input type="email" name="email" id="contact-email" oninput="validateEmail()" class="form-control form-control-lg" />
                 <label class="form-label pt-4" for="typeEmailX-2">Email</label>
+                <span id="email-error"></span>
               </div>
 
             <div class="form-outline mb-4 p-4">
@@ -27,12 +29,8 @@
 
             
 
-            <button class="btn btn-primary btn-lg btn-block " type="submit" >Sign Up</button>
+            <button class="btn btn-primary btn-lg btn-block " type="submit" >Create</button>
             </form>
-
-            <hr class="my-4">
-
-                        <a class="btn btn-lg btn-block btn-danger fab fa-google me-2" href="/">Already have an account?</a>
 
 
           </div>
@@ -41,3 +39,36 @@
     </div>
   </div>
 </section>
+
+  <script>
+    let usernameError=document.getElementById('name-error');
+let passwordError=document.getElementById('email-error')
+
+
+function validateName(){
+    let username= document.getElementById('contact-name').value
+
+    if(username.length==0){
+        usernameError.innerHTML='Username Required';
+        return false
+    }
+    nameError.innerHTML =' ';
+    return true;
+}
+
+  const validateEmail = () => {
+
+    var email = document.getElementById('contact-email').value;
+    if (email.length == 0) {
+      emailError.innerHTML = 'Email is rquired'
+      return false
+    }
+    if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)+$/)) {
+      emailError.innerHTML = 'enter valied email address'
+      return false
+    }
+    emailError.innerHTML = ''
+  }
+
+  </script>
+

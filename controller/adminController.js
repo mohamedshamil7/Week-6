@@ -61,10 +61,17 @@ module.exports={
     },
 
     editUser:(req,res,next)=>{
-        adminHelpers.editUserData(req.body).then((response)=>{
-            next()
-        })
-        console.log(req.body);
+        if( !req.body.username || !req.body.email){
+            res.render('adminView/edituser',{error:"enter data"})
+        }
+        else{
+            adminHelpers.editUserData(req.body).then((response)=>{
+                next()
+            })
+            console.log(req.body);
+
+        }
+     
     },
 
     addUserPage:(req,res)=>{
