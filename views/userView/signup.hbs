@@ -5,35 +5,38 @@
         <div class="card shadow-2-strong" style="border-radius: 1rem;">
           <div class="card-body p-5 text-center">
 
-        <form action="/signup-submit" method="post">
+            <form action="/signup-submit" method="post">
 
-            <h3 class="mb-5">create an Account</h3>
+              <h3 class="mb-5">create an Account</h3>
 
-            <div class="form-outline mb-4">
-              <p style="color:red ;">{{error}}</p>
+              <div class="form-outline mb-4">
+                <p style="color:red ;">{{error}}</p>
 
-              <span style="color:red ;" id="username-error"></span>
-              <input type="text" name="username" id="data-username" oninput="validateUserName()" class="form-control form-control-lg" />
-              <label class="form-label pt-4" for="typeUsernameX-2">Username</label>
-            </div>
-            
-            <div class="form-outline mb-4">
+                <span style="color:red ;" id="name-error"></span>
+                <input type="text" name="username" id="contact-name" oninput="validateName()"
+                  class="form-control form-control-lg" />
+                <label class="form-label pt-4" for="typeUsernameX-2">Username</label>
+              </div>
 
-              <span  style="color:red ;" id="email-error"></span>
-                <input type="email" name="email" id="data-email" oninput="validateEmail()" class="form-control form-control-lg" />
+              <div class="form-outline mb-4">
+
+                <span style="color:red ;" id="email-error"></span>
+                <input type="email" name="email" id="contact-email" oninput="validateEmail()"
+                  class="form-control form-control-lg" />
                 <label class="form-label pt-4" for="typeEmailX-2">Email</label>
               </div>
 
-            <div class="form-outline mb-4 p-4">
-              <span  style="color:red ;" id="password-error"></span>
-              <input type="password" name="password" id="data-password" oninput="validatePassword()" class="form-control form-control-lg" />
-              <label class="form-label pt-4" for="typePasswordX-2">Password</label>
-            </div>
-            <button class="btn btn-primary btn-lg btn-block " type="submit" >Sign Up</button>
+              <div class="form-outline mb-4 p-4">
+                <span style="color:red ;" id="password-error"></span>
+                <input type="password" name="password"
+                  class="form-control form-control-lg" />
+                <label class="form-label pt-4" for="typePasswordX-2">Password</label>
+              </div>
+              <button class="btn btn-primary btn-lg btn-block " type="submit">Sign Up</button>
             </form>
 
             <hr class="my-4">
-<a class="btn btn-lg btn-block btn-danger " href="/">Already have an account?</a>
+            <a class="btn btn-lg btn-block btn-danger " href="/">Already have an account?</a>
 
 
           </div>
@@ -41,59 +44,42 @@
       </div>
     </div>
   </div>
+
 </section>
-
 <script>
-  var usernameError= document.getElementById('username-error')
-  var emailError=document.getElementById('email-error')
-  var passwordError= document.getElementById('password-error')
 
-  function validateUserName(){
- 
-    var username=document.getElementById('data-username').value;
+  var nameError = document.getElementById('name-error');
+  var emailError = document.getElementById('email-error');
+  var submitError = document.getElementById('submit-error');
 
-if(username.length==0){
-
-        usernameError.innerHTML='Please Enter a UserName';
-        return false;
-}
- if(!username.match(/^[A-Za-z]/)){
-        usernameError.innerHTML='please enter valid UserName';
-        return false;
-
+  const validateName = () => {
+    console.log("cel")
+    var name = document.getElementById('contact-name').value;
+    if (name.length == 0) {
+      nameError.innerHTML = 'write name';
+      return false
+    }
+    if (!name.match(/^[A-Za-z]/)) {
+      nameError.innerHTML = 'entername';
+      return false
+    }
+    nameError.innerHTML = ''
   }
-username.innerHTML=" ";
+  const validateEmail = () => {
 
-    return true;
-  }
- function validateEmail(){
-  var email=document.getElementById('data-email').value
-if(email.length == 0){
-        emailError.innerHTML='Email is rquired'
-        return false
-  
- }
-  if(!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)+$/)){
-        emailError.innerHTML='enter valied email address'
-        return false;
-
-  }
-  emailError.innerHTMl=' ';
-  return true;
- }
-
- validatePassword(){
-  var password=document.getElementById('data-password').value
-
-  if(password.length==0){
-    passwordError.innerHTML='Please enter password'
-    return false
+    var email = document.getElementById('contact-email').value;
+    if (email.length == 0) {
+      emailError.innerHTML = 'Email is rquired'
+      return false
+    }
+    if (!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)+$/)) {
+      emailError.innerHTML = 'enter valied email address'
+      return false
+    }
+    emailError.innerHTML = ''
   }
 
-passwordError.innerHTML=' '
-return true
- }
- 
+
 
 
 </script>
