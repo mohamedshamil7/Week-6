@@ -48,6 +48,7 @@ module.exports={
     )},
     deleteUser:(req,res,next)=>{
         adminHelpers.RemoveUser(req.params.id).then((response)=>{
+            req.session.user=null
             next()
         })
     },
